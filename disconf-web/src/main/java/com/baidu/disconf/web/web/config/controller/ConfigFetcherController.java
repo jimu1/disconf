@@ -57,14 +57,12 @@ public class ConfigFetcherController extends BaseController {
      *
      * @return
      */
-    @NoAuth
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public JsonObjectBase getList(ConfForm confForm) {
         return getListImp(confForm, true);
     }
 
-    @NoAuth
     @RequestMapping(value = "/simple/list", method = RequestMethod.GET)
     @ResponseBody
     public JsonObjectBase getSimpleList(ConfForm confForm) {
