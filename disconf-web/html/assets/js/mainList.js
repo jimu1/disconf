@@ -131,6 +131,9 @@
                 "/api/web/config/downloadfilebatch?appId=" + appId + "&envId="
                 + envId + "&version=" + version);
 
+        // 资产导出：服务端按当前登录用户的授权应用过滤，仅返回 CSV 附件
+        $("#asset_export").attr('href', "/api/web/export/asset");
+
         $("#mainlist_error").hide();
         var parameter = ""
 
