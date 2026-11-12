@@ -47,8 +47,8 @@
         <property name="uploadTempDir" value="tmp"></property>
         <property name="maxInMemorySize" value="4194304"/>
         <!-- 最大内存大小 -->
-        <property name="maxUploadSize" value="4194304"/>
-        <!-- 最大文件大小，1024*1024*4 = 4M -->
+        <property name="maxUploadSize" value="33554432"/>
+        <!-- 最大上传大小，1024*1024*32 = 32M，含资产上传；配置文件上传仍由 FileUploadValidator 限制在 4M -->
     </bean>
 
 </beans>

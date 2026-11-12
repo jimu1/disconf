@@ -40,4 +40,17 @@ public class Columns {
     public static final class RoleColumns {
         public final static String ROLE_NAME = "role_name";
     }
+
+    /**
+     * 资产(asset)表字段
+     */
+    public static final String ASSET_ID = "asset_id";
+    public static final String ASSET_ORIGINAL_FILE_NAME = "original_file_name";
+    public static final String ASSET_STORED_NAME = "stored_name";
+    public static final String ASSET_FILE_SIZE = "file_size";
+    public static final String ASSET_FILE_TYPE = "file_type";
+    public static final String ASSET_CONTENT_TYPE = "content_type";
+    public static final String ASSET_APP = "asset_app";
+    public static final String ASSET_DESC = "asset_desc";
+    public static final String ASSET_OWNER = "asset_owner";
 }
