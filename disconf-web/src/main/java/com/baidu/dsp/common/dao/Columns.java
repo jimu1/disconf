@@ -53,4 +53,15 @@ public class Columns {
     public static final String ASSET_APP = "asset_app";
     public static final String ASSET_DESC = "asset_desc";
     public static final String ASSET_OWNER = "asset_owner";
+
+    /**
+     * DNSLog 配置(dnslog_config)表字段
+     */
+    public static final String DNSLOG_ID = "dnslog_id";
+    public static final String DNSLOG_DOMAIN = "domain";
+    public static final String DNSLOG_API_URL = "api_url";
+    public static final String DNSLOG_API_TOKEN = "api_token";
+    public static final String DNSLOG_ENABLED = "enabled";
+    public static final String DNSLOG_DESCRIPTION = "description";
+    public static final String DNSLOG_OWNER = "dnslog_owner";
 }
