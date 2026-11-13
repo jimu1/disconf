@@ -1,5 +1,7 @@
 package com.baidu.disconf.web.web.config.validator;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.baidu.disconf.web.service.app.service.AppMgr;
 import com.baidu.disconf.web.service.config.bo.Config;
 import com.baidu.disconf.web.service.config.form.ConfNewForm;
 import com.baidu.disconf.web.service.config.form.ConfNewItemForm;
+import com.baidu.disconf.web.service.config.form.ConfPublishTargetForm;
 import com.baidu.disconf.web.service.config.service.ConfigFetchMgr;
 import com.baidu.disconf.web.service.config.service.ConfigMgr;
 import com.baidu.disconf.web.service.env.bo.Env;
@@ -143,7 +146,7 @@ public class ConfigValidator {
     /**
      * @param appId
      */
-    private void validateAppAuth(long appId) {
+    public void validateAppAuth(Long appId) {
 
         boolean ret = authMgr.verifyApp4CurrentUser(appId);
         if (ret == false) {
@@ -202,6 +205,69 @@ public class ConfigValidator {
 
         //
         validateAppAuth(config.getAppId());
+    }
+
+    /**
+     * 校验公共发布
+     *
+     * @param configId 源配置ID
+     * @param targets  目标列表
+     */
+    public void validateCommonPublish(Long configId, List<ConfPublishTargetForm> targets) {
+
+        //
+        // 源配置必须存在
+        //
+        Config config = configMgr.getConfigById(configId);
+        if (config == null) {
+            throw new FieldException("configId", "config.not.exist", null);
+        }
+
+        //
+        // 源app权限
+        //
+        validateAppAuth(config.getAppId());
+
+        //
+        // 目标列表不能为空
+        //
+        if (targets == null || targets.isEmpty()) {
+            throw new FieldException("targets", "publish.targets.empty", null);
+        }
+
+        //
+        // 逐个校验目标
+        //
+        for (ConfPublishTargetForm target : targets) {
+
+            if (target == null || !target.isComplete()) {
+                throw new FieldException("targets", "publish.targets.invalid", null);
+            }
+
+            //
+            // 目标app + 权限
+            //
+            App app = appMgr.getById(target.getAppId());
+            if (app == null) {
+                throw new FieldException("targets", "app.not.exist", null);
+            }
+            validateAppAuth(app.getId());
+
+            //
+            // 目标env
+            //
+            Env env = envMgr.getById(target.getEnvId());
+            if (env == null) {
+                throw new FieldException("targets", "env.not.exist", null);
+            }
+
+            //
+            // 目标version
+            //
+            if (StringUtils.isEmpty(target.getVersion())) {
+                throw new FieldException("targets", "version.not.exist", null);
+            }
+        }
     }
 
 }
